@@ -27,6 +27,8 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
      */
     private int tailIndex;
 
+    
+    private int pitem;
     /**
      * Create a new empty queue of the given size.
      *
@@ -40,10 +42,31 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
 
     @Override
     public T head() throws QueueUnderflowException {
+       
+        T item = null;
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            return ((PriorityItem<T>) storage[0]).getItem();
+            
+               for (int i = 0; i < capacity; i++) {
+                if(storage[i] == null){
+                break;
+                }else{
+                int gPriority =  ((PriorityItem<T>) storage[i]).getPriority();
+                T titem =  ((PriorityItem<T>) storage[i]).getItem(); 
+                int p=0;
+                  if( tailIndex < gPriority){
+                    tailIndex = gPriority;
+                            
+                  item = titem;
+                  
+                    } 
+                     
+                }
+            }
+            
+            
+            return item;
         }
     }
 
@@ -57,23 +80,36 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
         } else {
             /* Scan backwards looking for insertion point */
             int i = tailIndex;
-            while (i > 0 && ((PriorityItem<T>) storage[i - 1]).getPriority() < priority) {
-                storage[i] = storage[i - 1];
-                i = i - 1;
-            }
+        
             storage[i] = new PriorityItem<>(item, priority);
         }
     }
 
-    @Override
+      @Override
     public void remove() throws QueueUnderflowException {
+       
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            for (int i = 0; i < tailIndex; i++) {
-                storage[i] = storage[i + 1];
+            for (int i = 0; i < storage.length; i++) {
+                if(storage[i] == null){
+                break;
+                }else{
+                int hv =  ((PriorityItem<T>) storage[i]).getPriority();
+                
+                int p=0;
+                
+                if(hv>tailIndex){
+                storage[i] = storage[i+1];
+                           tailIndex = tailIndex - 1;
+                 }
+ 
+                    tailIndex = tailIndex - 1;
+                }
             }
-            tailIndex = tailIndex - 1;
+              
+                  
+                        
         }
     }
 
