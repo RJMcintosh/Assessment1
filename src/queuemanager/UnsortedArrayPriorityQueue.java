@@ -66,8 +66,9 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
             }
             
             
-            return item;
+           
         }
+         return item;
     }
 
     @Override
@@ -87,31 +88,38 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
 
       @Override
     public void remove() throws QueueUnderflowException {
-       
+       int hv=0;
         if (isEmpty()) {
             throw new QueueUnderflowException();
-        } else {
-            for (int i = 0; i < storage.length; i++) {
-                if(storage[i] == null){
-                break;
-                }else{
-                int hv =  ((PriorityItem<T>) storage[i]).getPriority();
-                
-                int p=0;
-                
-                if(hv>tailIndex){
-                storage[i] = storage[i+1];
-                           tailIndex = tailIndex - 1;
+        } else { 
+       
+            for (int i = 0; i <= capacity; i++) {
+                 if(storage[i] != null){
+           
+                 hv =  ((PriorityItem<T>) storage[i]).getPriority(); 
+                 
+                 
+               if(pitem < hv){
+                     pitem = hv;
                  }
- 
-                    tailIndex = tailIndex - 1;
+                
+                   
+    
+               if(tailIndex <= pitem){       
+                        storage[i] = storage[i + 1];                              
                 }
-            }
-              
-                  
-                        
+                 
+               
+                 }else{
+              break;
+                 }
+               
+                } tailIndex = tailIndex - 1; 
+               
+            }          
         }
-    }
+      
+    
 
     @Override
     public boolean isEmpty() {
@@ -121,13 +129,17 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
     @Override
     public String toString() {
         String result = "[";
+         
         for (int i = 0; i <= tailIndex; i++) {
+            if(storage[i] != null){
             if (i > 0) {
                 result = result + ", ";
             }
             result = result + storage[i];
-        }
+        
         result = result + "]";
+            }
+         }
         return result;
     }
     
