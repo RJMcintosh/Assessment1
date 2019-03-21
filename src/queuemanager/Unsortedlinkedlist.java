@@ -7,17 +7,15 @@ package queuemanager;
 
 /**
  *
- * @author Rossspc
+ * @author 16001551
  */
 
-    
-public class Orderedlinkedlist<T> implements PriorityQueue<T> {
+public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
 
     private ListNode<T> head;
-
-
+    
   
-    public Orderedlinkedlist() {
+    public Unsortedlinkedlist() {
         head = null;
         
     }
@@ -46,45 +44,9 @@ public class Orderedlinkedlist<T> implements PriorityQueue<T> {
     }
     
     @Override
-    public void add(T item, int priority) throws QueueOverflowException{
-          ListNode Prv;
-          ListNode Cur=head;
-       if(isEmpty()){
-           head = new ListNode<>(item, priority, null);
-       }
-       for (ListNode<T> node = head.next; node != null; node = node.getNext()) {
-            if (node != head) {
-                 Prv = Cur;  
-                 Cur = Cur.getNext();
-            }
-       
-        }
-       head = new ListNode<>(item, priority, null);
-      
+    public void add(T item,int priority) {
+         head = new ListNode<>(item, priority, null);
     }
-
-    
-        
-        /*
-             tailIndex = tailIndex + 1;
-        if (tailIndex >= result) {
-  
-            tailIndex = tailIndex - 1;
-           
-        } else {
-          
-          
-            int i = tailIndex;
-            while (head != null ) {
-               if(head.result > result){
-                   head = head.getNext();
-               }else{
-               
-               }
-            }
-           
-        }*/
-    
     
     @Override
     public String toString() {
@@ -115,3 +77,4 @@ public class Orderedlinkedlist<T> implements PriorityQueue<T> {
 
    
 }
+
