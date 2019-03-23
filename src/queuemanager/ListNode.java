@@ -12,7 +12,7 @@ package queuemanager;
 public class ListNode<T> {
     private T item;
     public ListNode<T> next;
-    private int priority;
+    public int priority;
     public ListNode(T item, int priority, ListNode<T> next) {
         this.item = item;
         this.priority = priority;

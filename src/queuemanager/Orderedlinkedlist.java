@@ -47,23 +47,28 @@ public class Orderedlinkedlist<T> implements PriorityQueue<T> {
     
     @Override
     public void add(T item, int priority) throws QueueOverflowException{
-          ListNode Prv;
+          ListNode Prv=head;
           ListNode Cur=head;
-       if(isEmpty()){
-           head = new ListNode<>(item, priority, null);
-       }
-       for (ListNode<T> node = head.next; node != null; node = node.getNext()) {
-            if (node != head) {
+          ListNode newnode = new ListNode<T>(item, priority, head);
+      
+        if(head == null || head.priority>priority){
+            newnode.next = head;
+	head = newnode;
+	
+            }else{
+     while(Cur!=null && Cur.priority<priority){
                  Prv = Cur;  
-                 Cur = Cur.getNext();
-            }
-       
+                 Cur = Cur.next;
+            
+      
         }
-       head = new ListNode<>(item, priority, null);
+       Prv.next=newnode;
+       newnode.next=Cur;
+      
       
     }
 
-    
+    } 
         
         /*
              tailIndex = tailIndex + 1;
