@@ -8,6 +8,7 @@ package queuemanager;
 /**
  *
  * @author Rossspc
+ * Used this for some help for adding https://github.com/gautham20/geeksforgeeks/blob/master/linked_list/insertSorted.java
  */
 
     
@@ -39,6 +40,7 @@ public class Orderedlinkedlist<T> implements PriorityQueue<T> {
     
     @Override
     public void remove() throws QueueUnderflowException{
+        
         if (isEmpty()) {
             throw new QueueUnderflowException();
         }
@@ -51,12 +53,12 @@ public class Orderedlinkedlist<T> implements PriorityQueue<T> {
           ListNode Cur=head;
           ListNode newnode = new ListNode<T>(item, priority, head);
       
-        if(head == null || head.priority>priority){
+        if(head == null || head.priority<=priority){
             newnode.next = head;
 	head = newnode;
 	
             }else{
-     while(Cur!=null && Cur.priority<priority){
+     while(Cur!=null && Cur.priority>priority){
                  Prv = Cur;  
                  Cur = Cur.next;
             
@@ -69,27 +71,7 @@ public class Orderedlinkedlist<T> implements PriorityQueue<T> {
     }
 
     } 
-        
-        /*
-             tailIndex = tailIndex + 1;
-        if (tailIndex >= result) {
-  
-            tailIndex = tailIndex - 1;
-           
-        } else {
-          
-          
-            int i = tailIndex;
-            while (head != null ) {
-               if(head.result > result){
-                   head = head.getNext();
-               }else{
-               
-               }
-            }
-           
-        }*/
-    
+
     
     @Override
     public String toString() {

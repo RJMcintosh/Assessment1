@@ -37,16 +37,38 @@ public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
     
     @Override
     public void remove() throws QueueUnderflowException{
-        if (isEmpty()) {
+                
+          ListNode Cur=head;
+         ListNode Top=head;
+          T item=null;
+          ListNode newnode = new ListNode<T>(item, 0, head);
+          ListNode top=null;
+          if (isEmpty()) {
             throw new QueueUnderflowException();
         }
-        head = head.getNext();
+       
+      for (ListNode<T> node = head; node != null; node = node.getNext()) {
+         if(Cur.priority>Top.priority){
+            head = head.getNext();
+           }
+      }
+      
     }
+    
+
     
     @Override
     public void add(T item,int priority) {
-         head = new ListNode<>(item, priority, null);
-    }
+        
+    
+    head = new ListNode<>(item, priority, head);
+        
+    }     
+
+  
+    
+    
+    
     
     @Override
     public String toString() {
