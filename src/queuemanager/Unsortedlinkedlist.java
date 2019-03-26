@@ -13,6 +13,8 @@ package queuemanager;
 public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
 
     private ListNode<T> head;
+    public int priority=0;
+    public int counter=0;
     
   
     public Unsortedlinkedlist() {
@@ -28,39 +30,69 @@ public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
     
     @Override
     public T head() throws QueueUnderflowException {
+         ListNode<T> Cur=head;
+          ListNode<T> item = null;
         if (isEmpty()) {
-            
+         throw new QueueUnderflowException();   
         }
-        return head.getItem();
+           for (int i = 0; i <= counter; i++) {
+         
+             if(priority < Cur.priority){
+                if(Cur == null){
+                break;
+                }else{
+              item = Cur;   
+               priority=Cur.priority;
+            }
+            Cur = Cur.next;
+          }
+       }
+      return item.getItem();
     }
   
     
     @Override
     public void remove() throws QueueUnderflowException{
-                
-          ListNode Cur=head;
-         ListNode Top=head;
-          T item=null;
-          ListNode newnode = new ListNode<T>(item, 0, head);
-          ListNode top=null;
-          if (isEmpty()) {
-            throw new QueueUnderflowException();
+       ListNode<T> Cur=head;         
+       ListNode<T> item = null;
+        ListNode Prv=head;
+       int tailIndex=0;
+        if (isEmpty()) {
+         throw new QueueUnderflowException();   
+        }else if(head.priority == priority){
+        head = head.getNext(); 
         }
-       
-      for (ListNode<T> node = head; node != null; node = node.getNext()) {
-         if(Cur.priority>Top.priority){
-            head = head.getNext();
-           }
-      }
-      
+          for (ListNode<T> node = head; node != null; node = node.getNext(),tailIndex++) {
+            if (Cur.priority == priority) {
+                tailIndex = priority;
+            }
+          }
+           for (int i = 0; i <= counter; i++) {
+                
+             if(counter < Cur.priority -1){
+               if(Cur != null){
+             
+              Prv = Cur;   
+               priority=Cur.priority;
+                
+
+            }else{
+                break;
+                }
+                 
+            Cur.next = Prv.next;
+            Prv.next = Cur.next;
+             }
+       }
+        Prv = Prv.getNext();    
+   
     }
-    
 
     
     @Override
     public void add(T item,int priority) {
         
-    
+    counter = counter+1;
     head = new ListNode<>(item, priority, head);
         
     }     
@@ -75,7 +107,7 @@ public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
         String result = "LinkedStack: size = " + size();
         result += ", contents = [";
         for (ListNode<T> node = head; node != null; node = node.getNext()) {
-            if (node != head) {
+            if (node != head && node != null) {
                 result += ", ";
             }
             result += node.getItem();
