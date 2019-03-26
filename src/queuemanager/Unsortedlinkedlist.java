@@ -45,46 +45,38 @@ public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
                priority=Cur.priority;
             }
             Cur = Cur.next;
+          
           }
        }
+             
       return item.getItem();
     }
   
     
     @Override
     public void remove() throws QueueUnderflowException{
-       ListNode<T> Cur=head;         
-       ListNode<T> item = null;
-        ListNode Prv=head;
-       int tailIndex=0;
+             
+   
+        ListNode<T> Prv=head;
+        ListNode<T> Cur = head;
+       
         if (isEmpty()) {
          throw new QueueUnderflowException();   
         }else if(head.priority == priority){
         head = head.getNext(); 
         }
-          for (ListNode<T> node = head; node != null; node = node.getNext(),tailIndex++) {
-            if (Cur.priority == priority) {
-                tailIndex = priority;
-            }
-          }
-           for (int i = 0; i <= counter; i++) {
-                
-             if(counter < Cur.priority -1){
-               if(Cur != null){
-             
-              Prv = Cur;   
-               priority=Cur.priority;
-                
-
-            }else{
-                break;
-                }
-                 
-            Cur.next = Prv.next;
-            Prv.next = Cur.next;
+         
+        for (int i = 0; i < counter; i++) {             
+                   if(Prv != null){
+                     Prv=Prv;
+                    }else{
+                       break;
+                    }                        
              }
-       }
-        Prv = Prv.getNext();    
+                
+            Cur=Prv.next;
+            Prv.next = Cur.next;
+            Cur.next = null;
    
     }
 
