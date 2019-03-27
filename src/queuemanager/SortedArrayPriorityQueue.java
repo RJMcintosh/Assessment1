@@ -57,7 +57,9 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
+        //adds 1 to the tailIndex 
         tailIndex = tailIndex + 1;
+        //if the tailIndex is equal or over the capacity it'll -1 to the tailIndex which finds where to put the value
         if (tailIndex >= capacity) {
             /* No resizing implemented, but that would be a good enhancement. */
             tailIndex = tailIndex - 1;
