@@ -19,10 +19,12 @@ public class ListNode<T> {
         this.next = next;
     }
     
+    //getItem returns the item which is choosen 
     public T getItem() {
         return item;
     }
     
+    //returns the next node
     public ListNode<T> getNext() {
         return next;
     }
