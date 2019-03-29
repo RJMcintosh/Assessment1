@@ -30,6 +30,7 @@ public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
     
     @Override
     public T head() throws QueueUnderflowException {
+        priority =0;
         //Created a current node which is set to head
          ListNode<T> Cur=head;
          //Created a item node which is set to null
@@ -39,14 +40,18 @@ public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
         }
          //does a for loop for amount of item that have been added 
            for (int i = 0; i <= counter; i++) {
-         //if current priority is less than the priority value 
-             if(priority < Cur.priority){
-                 //checks if there is any null values in Cur 
-                if(Cur == null){
-                    //breaks if there is
+                 //checks if there is any null values in Cur
+                 if(Cur == null){ 
+                   //breaks if there is any nulls to stop the program form crashing
                 break;
                 //if no nulls then does this else
-                }else{
+                }else{   
+                     
+         //if current priority is less than the priority value 
+             if(priority <= Cur.priority ){
+               
+             
+                   
                   //which sets item to current  
               item = Cur;   
               //also sets priority to the current priority
@@ -67,8 +72,9 @@ public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
              
         //Creates a node varible called Prv and chages the vaule to the head
         ListNode<T> Prv=head;
-        //Creates a node varible called Cur and chages the vaule to the head
-        ListNode<T> Cur = head;
+       int ifind = 1;
+        int index=0;
+        
        
         if (isEmpty()) {
          throw new QueueUnderflowException(); 
@@ -76,29 +82,39 @@ public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
         }else if(head.priority == priority){
         //if it is it removes the head
         head = head.getNext(); 
-        //else
-        }
-        //does a for loop for amount of item that have been added 
-        for (int i = 0; i < counter; i++) {     
-            //Checks if the Prv item is not null to stop it crashing 
-                   if(Prv != null){
-                      //If not null then sets previous to previous
-                     Prv=Prv;
-                    }else{
-                       //if Prv is null then breaks
-                       break;
-                    }                        
+       
+        }else{
+          
+        int rcount=1;
+        /*does a for loop for amount of items that have been added, 
+        creates a listnode called node which then goes through to find
+        the highest priority
+        */
+       for (ListNode<T> node = head; node != null; node = node.getNext(),ifind++) { 
+             
+              if(node.priority == priority){
+               //if it is it removes the head
+              index = ifind; 
+                 }                            
              }
-               
-             //Sets the Current node to the Previous node
-            Cur=Prv.next;
+       //goes through the index to get the previous item
+             while(rcount<index-1){
+              
+                      //sets the previous node to previous item
+                     Prv=Prv.next;
+                     rcount++;
+                }  
+                               
+            //Creates a node varible called Cur and chages the vaule to the head
+            ListNode<T> Cur = Prv.next;
             //Sets the previous node to the current node
             Prv.next = Cur.next;
             //sets the current value to null
             Cur.next = null;
    
+  
+        }
     }
-
     
     @Override
     public void add(T item,int priority) {
@@ -116,18 +132,23 @@ public class Unsortedlinkedlist<T> implements PriorityQueue<T> {
     
     @Override
     public String toString() {
-        String result = "LinkedStack: size = " + size();
-        result += ", contents = [";
+        String result = "Unsortedlinkedlist: size = " + size();
+        result += "[";
         for (ListNode<T> node = head; node != null; node = node.getNext()) {
             if (node != head && node != null) {
                 result += ", ";
             }
+            result += "(";
             result += node.getItem();
+            result += ", ";
+            result += node.priority;
+         result += ")";
         }
-        result += "], isEmpty() = " + isEmpty();
+       
         if (!isEmpty()) {
            // result += ", head() = " + head();
-        }
+        }   
+        result += "]";
         return result;
     }
     

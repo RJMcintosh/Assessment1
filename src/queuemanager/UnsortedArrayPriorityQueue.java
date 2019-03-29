@@ -47,13 +47,17 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
+            tailIndex= -1; 
             //loops through the capacity of the array
                for (int i = 0; i < capacity; i++) {
                    //if any null values in the storage it will do a break 
                 if(storage[i] == null){
                 break;
                 //if no null values then fines the highest vaule
-                }else{
+                }
+                
+                else
+                {
                     //gets priority
                 int gPriority =  ((PriorityItem<T>) storage[i]).getPriority();
                 //gets the object getitem and stores in node titem
@@ -69,7 +73,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
                      
                 }
             }
-     
+              
         }
         //returns the highest value
          return item;
@@ -77,6 +81,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
     //Used to add the object into the array 
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
+         
         tailIndex = tailIndex + 1;
         if (tailIndex >= capacity) {
             /* No resizing implemented, but that would be a good enhancement. */
@@ -88,16 +93,19 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
         //adds the object into the array called storage
             storage[i] = new PriorityItem<>(item, priority);
         }
+       
     }
     //Used to remove an object
       @Override
     public void remove() throws QueueUnderflowException {
         //creates a varible called hv which value is set to 0
        int hv=0;
+       pitem=0;
        //sees if any array is empty if it is it will throw a QueueUnderflowException
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else { 
+             
                 //fixed loop to loop through the capacity untill its equal to or less than the i value
             for (int i = 0; i <= capacity; i++) {
                 //checks if any null values are present and breaks if there is
@@ -123,7 +131,8 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>  {
               break;
                  }
                //removes 1 to the tailIndex
-                } tailIndex = tailIndex - 1; 
+                } 
+                tailIndex = tailIndex - 1; 
                
             }          
         }

@@ -86,18 +86,23 @@ public class Orderedlinkedlist<T> implements PriorityQueue<T> {
     
     @Override
     public String toString() {
-        String result = "LinkedStack: size = " + size();
-        result += ", contents = [";
+        String result = "Orderedlinkedlist: size = " + size();
+        result += "[";
         for (ListNode<T> node = head; node != null; node = node.getNext()) {
-            if (node != head) {
+            if (node != head && node != null) {
                 result += ", ";
             }
+            result += "(";
             result += node.getItem();
+            result += ", ";
+            result += node.priority;
+         result += ")";
         }
-        result += "], isEmpty() = " + isEmpty();
+       
         if (!isEmpty()) {
            // result += ", head() = " + head();
-        }
+        }   
+        result += "]";
         return result;
     }
     
